@@ -8,7 +8,11 @@ class Stopwatch extends React.Component {
                 miliseconds: 0
             }
         };
-        
+        this.running = false;
+        this.start = this.start.bind(this);
+        this.stop = this.stop.bind(this);
+        this.reset = this.reset.bind(this);
+
     }
 
     reset() {
@@ -19,10 +23,12 @@ class Stopwatch extends React.Component {
                 miliseconds: 0
             }
         });
-
+        this.print();
     }
 
+    print() {
 
+    }
 
     format(times) {
         return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
@@ -36,7 +42,7 @@ class Stopwatch extends React.Component {
     }
 
     step() {
-        if (!this.state) return;
+        if (!this.running) return;
         this.calculate();
 
     }
@@ -56,7 +62,7 @@ class Stopwatch extends React.Component {
     }
 
     stop() {
-        this.setState = false;
+        this.running = false;
         clearInterval(this.watch);
     }
 
@@ -91,7 +97,6 @@ function pad0(value) {
     }
     return result;
 }
-
 
 const app = document.getElementById('app')
 ReactDOM.render(<Stopwatch />, app);
